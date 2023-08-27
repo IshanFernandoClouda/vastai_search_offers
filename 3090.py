@@ -1,6 +1,7 @@
 import os
 import json
 
+# Modify ---------------------------------------------------
 # GPU options
 GPU_TYPE = "RTX_3090"
 GPU_COUNT = 1
@@ -12,8 +13,11 @@ CPU_RAM = 20
 # Network options
 INET_UP = 10
 INET_DOWN = 300
-# price per gb transferred
-PRICE = 1
+# price per tb transferred
+PRICE = 0
+# Modify END -----------------------------------------------
+
+# Do not modify below
 INET_UP_PRICE = PRICE/1024
 INET_DOWN_PRICE = PRICE/1024
 
