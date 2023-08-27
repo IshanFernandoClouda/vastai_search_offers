@@ -7,7 +7,7 @@ GPU_TYPE = "RTX_3090"
 GPU_COUNT = 1
 
 # CPU options
-DISK = 8
+DISK = 30
 CPU_RAM = 20
 
 # Network options
@@ -31,11 +31,8 @@ for each in output:
     effectiveFactor = each["cpu_cores_effective"] / each["cpu_cores"]
     if effectiveFactor * each["cpu_ram"] >= CPU_RAM * 1024:
         each["cpu_ram"] = effectiveFactor * each["cpu_ram"]
-        print("ok")
     else:
         output.pop(count)
-        print("removed")
-    print("*"*20)
     count += 1
 
 if len(output) > 0:
@@ -43,23 +40,21 @@ if len(output) > 0:
     print(json.dumps(first_instance, indent=4))
 
     print(f"gpu_name: {first_instance['gpu_name']}")
-    print(f"gpu_ram: {first_instance['gpu_ram']/1024} gb")
+    print(f"gpu_ram: {first_instance['gpu_ram']/1024} GB")
     print(f"num_gpus: {first_instance['num_gpus']}")
     print()
-    print(f"cpu_ram: {first_instance['cpu_ram']/1024} gb")
-    print(f"disk_space: {first_instance['disk_space']} gb")
+    print(f"cpu_ram: {first_instance['cpu_ram']/1024:3.2f} GB")
+    print(f"disk_space: {first_instance['disk_space']:3.2f} GB available - {DISK}GB will be allocated for you")
     print()
-    print(f"inet_up: {first_instance['inet_up']}")
-    print(f"inet_up_cost: {first_instance['inet_up_cost']*1024} per tb")
+    print(f"inet_up: {first_instance['inet_up']:3.2f}mbps")
+    print(f"inet_up_cost: {first_instance['inet_up_cost']*1024:3.4f}$ per TB")
     print()
-    print(f"inet_down: {first_instance['inet_down']}")
-    print(f"inet_down_cost: {first_instance['inet_down_cost']*1024} per tb")
+    print(f"inet_down: {first_instance['inet_down']:3.2f}mbps")
+    print(f"inet_down_cost: {first_instance['inet_down_cost']*1024:3.4f}$ per TB")
     print()
     print(f"dlperf: {first_instance['dlperf']}")
     print()
-    print(f"dph_total: {first_instance['dph_total']}")
-
-
+    print(f"$/hr: {first_instance['dph_total']}$")
 
 
     if input("Rent the instance? [y,N] :").lower() == "y":
